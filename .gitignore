@@ -1,6 +1,6 @@
 headquarters/backoffice/config/parameters.yml
-build/
-headquarters/
+headquarters/frontoffice/*
+headquarters/libraries/*
 headquarters/vendor/*
 #!headquarters/vendor/**/*.php
 binaries/
