@@ -1,0 +1,11 @@
+_welcome:
+    pattern:  /
+    defaults: { _controller: PhpfoxTamerBundle:Welcome:index }
+
+#_demo_secured:
+#    resource: "@PhpfoxTamerBundle/Controller/SecuredController.php"
+#    type:     annotation
+
+rhetina_phpfox_rest:
+    resource: Rhetina\Bundle\PhpfoxTamerBundle\Controller\ProductsController
+    type:     rest

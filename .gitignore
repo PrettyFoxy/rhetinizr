@@ -1,6 +1,5 @@
 headquarters/backoffice/config/parameters.yml
 headquarters/frontoffice/*
-headquarters/libraries/*
 headquarters/vendor/*
 #!headquarters/vendor/**/*.php
 binaries/
@@ -15,3 +14,4 @@ Test/
 Tests/
 headquarters/**/*.md
 headquarters/**/*.txt
+.DS_Store
