@@ -1,5 +1,9 @@
 headquarters/backoffice/config/parameters.yml
-headquarters/frontoffice/*
+headquarters/frontoffice/**/*.json
+headquarters/**/*.jshintrc
+headquarters/**/*.npmignore
+headquarters/**/*.travis.yml
+headquarters/**/*.editorconfig
 headquarters/vendor/*
 #!headquarters/vendor/**/*.php
 binaries/
@@ -9,6 +13,7 @@ node_modules/
 bin/
 demo/
 tests/
+tests.src/
 test/
 Test/
 Tests/

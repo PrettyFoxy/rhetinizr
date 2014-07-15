@@ -1,0 +1,19 @@
+  <!--<td class="v-align-middle">-->
+  <!--<div class="checkbox check-default">-->
+  <!--<input id="checkbox11" type="checkbox" value="1">-->
+  <!--<label for="checkbox11"></label>-->
+  <!--</div>-->
+  <!--</td>-->
+  <td class="v-align-middle">{{ name }}</td>
+  <td class="v-align-middle"><span class="muted">{{ description }}</span>
+  </td>
+  <td><span class="muted">{{#each authors }}{{ name }}{{/each}}</span>
+  </td>
+  <td class="v-align-middle">
+      <button class="btn btn-success btn-product-settings" type="button" title="Module Settings"><i class="ri-cog"></i></button>
+      <button class="btn btn-primary btn-product-update" data-toggle="popover"
+              data-content="<p>This will check for updates and if any, will install them automatically</p><div class='alert'>This feature is not available for now. To be added in a feature release</div>"
+              data-original-title="Update">
+        <i class="ri-arrows-ccw"></i>
+      </button>
+  </td>

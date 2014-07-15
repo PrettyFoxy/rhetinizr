@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>better-ajaxify demo</title>
+    <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    body {
+        display: table;
+    }
+
+    .table-cell {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    body > nav {
+        width: 200px;
+        background: yellow;
+    }
+
+    [data-ajaxify=content] {
+        padding-left: 20px;
+
+        opacity: 1;
+        /* enable animations via CSS3 transition property */
+        -webkit-transition: opacity 0.3s ease-in;
+        transition: opacity 0.3s ease-in;
+    }
+
+    [data-ajaxify=content][aria-hidden=true] {
+        display: table-cell; /* override display:none */
+        opacity: 0;
+    }
+
+    /* style element which is going to be hidden */
+    [data-ajaxify=content] + [data-ajaxify=content] {
+        position: absolute;
+        left: 200px;
+
+        -webkit-transition-delay: 0.15s;
+        transition-delay: 0.15s;
+    }
+    </style>
+    <!--[if IE]>
+        <link href="bower_components/better-dom/dist/better-dom-legacy.htc" rel="htc"/>
+        <script src="bower_components/better-dom/dist/better-dom-legacy.js"></script>
+    <![endif]-->
+    <script src="bower_components/better-dom/dist/better-dom.js"></script>
+    <script src="src/better-ajaxify.js"></script>
+    <script src="src/better-ajaxify-hashchange.js"></script>
+</head>
+<body>
+    <nav class="table-cell">
+        <ul>
+            <li><a href="/better-ajaxify/demo/installing.html">Installing</a></li>
+            <li><a href="/better-ajaxify/demo/frontend-setup.html">Frontend setup</a></li>
+            <li><a href="/better-ajaxify/demo/backend-setup.html">Backend setup</a></li>
+        </ul>
+    </nav>
+    <section data-ajaxify="content" class="table-cell">
+        <h1>Home page</h1>
+        Ajax website engine for better-dom
+    </section>
+</body>
+</html>
