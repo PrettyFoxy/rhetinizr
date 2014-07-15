@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+
+    <class name="Sonata\BlockBundle\Model\Block">
+        <constraint name="Sonata\AdminBundle\Validator\Constraints\InlineConstraint">
+            <option name="service">sonata.block.manager</option>
+            <option name="method">validate</option>
+        </constraint>
+    </class>
+
+    <class name="Sonata\PageBundle\Model\Page">
+        <constraint name="Sonata\PageBundle\Validator\Constraints\UniqueUrl" />
+
+        <property name="name">
+           <constraint name="NotNull" >
+               <option name="groups" >
+                    <value>action_route</value>
+                    <value>cms_route</value>
+                    <value>Default</value>
+               </option>
+           </constraint>
+        </property>
+    </class>
+
+    <class name="Sonata\PageBundle\Model\Site">
+        <property name="name">
+           <constraint name="NotNull" />
+        </property>
+    </class>
+</constraint-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+

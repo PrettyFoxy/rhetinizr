@@ -1,11 +1,8 @@
-headquarters/backoffice/config/parameters.yml
 headquarters/frontoffice/**/*.json
 headquarters/**/*.jshintrc
 headquarters/**/*.npmignore
 headquarters/**/*.travis.yml
 headquarters/**/*.editorconfig
-headquarters/vendor/*
-#!headquarters/vendor/**/*.php
 binaries/
 composer.phar
 node_modules/
@@ -15,8 +12,11 @@ demo/
 tests/
 tests.src/
 test/
+docs/
 Test/
 Tests/
 headquarters/**/*.md
 headquarters/**/*.txt
 .DS_Store
+*.rst
+example/

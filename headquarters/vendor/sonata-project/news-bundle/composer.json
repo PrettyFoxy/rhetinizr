@@ -1,0 +1,51 @@
+{
+    "name": "sonata-project/news-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony SonataNewsBundle",
+    "keywords": ["blog", "sonata", "news", "post"],
+    "homepage": "http://sonata-project.org/bundles/news",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Rabaix",
+            "email": "thomas.rabaix@sonata-project.org",
+            "homepage": "http://sonata-project.org"
+        },
+        {
+            "name": "Sonata Community",
+            "homepage": "https://github.com/sonata-project/SonataNewsBundle/contributors"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "~2.3",
+        "sonata-project/core-bundle": "~2.2@dev",
+        "sonata-project/admin-bundle": "~2.2,>=2.2.7",
+        "sonata-project/user-bundle": "~2.2",
+        "sonata-project/media-bundle": "~2.2",
+        "sonata-project/classification-bundle": "~2.2",
+        "sonata-project/formatter-bundle": "~2.3",
+        "sonata-project/easy-extends-bundle": "~2.1",
+        "sonata-project/intl-bundle": "~2.1",
+
+        "friendsofsymfony/rest-bundle": "~1.1",
+        "nelmio/api-doc-bundle": "~2.4"
+    },
+    "require-dev": {
+        "friendsofsymfony/rest-bundle": "~1.1",
+        "doctrine/orm": "*",
+        "sonata-project/doctrine-orm-admin-bundle": "2.2.*@dev",
+        "sonata-project/notification-bundle": "2.2.*@dev"
+    },
+    "suggest": {
+        "sonata-project/doctrine-orm-admin-bundle": "~2.2.*",
+        "sonata-project/notification-bundle": "~2.*"
+    },
+    "autoload": {
+        "psr-4": { "Sonata\\NewsBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.3.x-dev"
+        }
+    }
+}
