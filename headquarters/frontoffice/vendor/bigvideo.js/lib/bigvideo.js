@@ -56,70 +56,70 @@
 		var settings = $.extend({}, defaults, options);
 
 		function updateSize() {
-			var windowW = settings.container.width();
-			var windowH = settings.container.height();
-			var windowAspect = windowW/windowH;
+			var containerW = settings.container.outerWidth() < $(window).width() ? settings.container.outerWidth() : $(window).width(),
+				containerH = settings.container.outerHeight() < $(window).height() ? settings.container.outerHeight() : $(window).height(),
+				containerAspect = containerW/containerH;
 
 			if (settings.container.is($('body'))) {
 				$('html,body').css('height',$(window).height() > $('body').css('height','auto').height() ? '100%' : 'auto');
 			}
 
-			if (windowAspect < mediaAspect) {
+			if (containerAspect < mediaAspect) {
 				// taller
-				if (currMediaType === 'video') {
+				if (currMediaType == 'video') {
 					player
-						.width(windowH*mediaAspect)
-						.height(windowH);
+						.width(containerH*mediaAspect)
+						.height(containerH);
 					if (!settings.shrinkable) {
 						$(vidEl)
 							.css('top',0)
-							.css('left',-(windowH*mediaAspect-windowW)/2)
-							.css('height',windowH);
+							.css('left',-(containerH*mediaAspect-containerW)/2)
+							.css('height',containerH);
 					} else {
 						$(vidEl)
-							.css('top',-(windowW/mediaAspect-windowH)/2)
+							.css('top',-(containerW/mediaAspect-containerH)/2)
 							.css('left',0)
-							.css('height',windowW/mediaAspect);
+							.css('height',containerW/mediaAspect);
 					}
 					$(vidEl+'_html5_api')
-						.css('width',windowH*mediaAspect)
-						.css('height',windowH);
+						.css('width',containerH*mediaAspect)
+						.css('height',containerH);
 					$(vidEl+'_flash_api')
-						.css('width',windowH*mediaAspect)
-						.css('height',windowH);
+						.css('width',containerH*mediaAspect)
+						.css('height',containerH);
 				} else {
 					// is image
 					$('#big-video-image')
 						.css({
 							width: 'auto',
-							height: windowH,
+							height: containerH,
 							top:0,
-							left:-(windowH*mediaAspect-windowW)/2
+							left:-(containerH*mediaAspect-containerW)/2
 						});
 				}
 			} else {
 				// wider
-				if (currMediaType === 'video') {
+				if (currMediaType == 'video') {
 					player
-						.width(windowW)
-						.height(windowW/mediaAspect);
+						.width(containerW)
+						.height(containerW/mediaAspect);
 					$(vidEl)
-						.css('top',-(windowW/mediaAspect-windowH)/2)
+						.css('top',-(containerW/mediaAspect-containerH)/2)
 						.css('left',0)
-						.css('height',windowW/mediaAspect);
+						.css('height',containerW/mediaAspect);
 					$(vidEl+'_html5_api')
 						.css('width',$(vidEl+'_html5_api').parent().width()+"px")
-                        .css('height','auto');
+						.css('height','auto');
 					$(vidEl+'_flash_api')
-						.css('width',windowW)
-						.css('height',windowW/mediaAspect);
+						.css('width',containerW)
+						.css('height',containerW/mediaAspect);
 				} else {
 					// is image
 					$('#big-video-image')
 						.css({
-							width: windowW,
+							width: containerW,
 							height: 'auto',
-							top:-(windowW/mediaAspect-windowH)/2,
+							top:-(containerW/mediaAspect-containerH)/2,
 							left:0
 						});
 				}
@@ -127,21 +127,22 @@
 		}
 
 		function initPlayControl() {
-			// create video controller
-			var markup = '<div id="big-video-control-container">';
-			markup += '<div id="big-video-control">';
-			markup += '<a href="#" id="big-video-control-play"></a>';
-			markup += '<div id="big-video-control-middle">';
-			markup += '<div id="big-video-control-bar">';
-			markup += '<div id="big-video-control-bound-left"></div>';
-			markup += '<div id="big-video-control-progress"></div>';
-			markup += '<div id="big-video-control-track"></div>';
-			markup += '<div id="big-video-control-bound-right"></div>';
-			markup += '</div>';
-			markup += '</div>';
-			markup += '<div id="big-video-control-timer"></div>';
-			markup += '</div>';
-			markup += '</div>';
+			// create video controls
+			var markup = ''+
+				'<div id="big-video-control-container">'+
+					'<div id="big-video-control">'+
+						'<a href="#" id="big-video-control-play"></a>'+
+						'<div id="big-video-control-middle">'+
+							'<div id="big-video-control-bar">'+
+								'<div id="big-video-control-bound-left"></div>'+
+								'<div id="big-video-control-progress"></div>'+
+								'<div id="big-video-control-track"></div>'+
+								'<div id="big-video-control-bound-right"></div>'+
+							'</div>'+
+						'</div>'+
+					'	<div id="big-video-control-timer"></div>'+
+					'</div>'+
+				'</div>';
 			settings.container.append(markup);
 
 			// hide until playVideo
@@ -185,19 +186,19 @@
 
 		function playControl(a) {
 			var action = a || 'toggle';
-			if (action === 'toggle') action = isPlaying ? 'pause' : 'play';
-			if (action === 'pause') {
+			if (action == 'toggle') action = isPlaying ? 'pause' : 'play';
+			if (action == 'pause') {
 				player.pause();
 				$('#big-video-control-play').css('background-position','-16px');
 				isPlaying = false;
 
-			} else if (action === 'play') {
+			} else if (action == 'play') {
 				player.play();
 				$('#big-video-control-play').css('background-position','0');
 				isPlaying = true;
-            } else if (action === 'skip') {
-                nextMedia();
-            }
+			} else if (action == 'skip') {
+				nextMedia();
+			}
 		}
 
 		function setUpAutoPlay() {
@@ -328,29 +329,67 @@
 			}
 		};
 
+		/**
+		 * Show video or image file
+		 *
+		 * @param source: The file to show, can be:
+		 *		- an array with objects for video files types
+		 *		- a string to a single video file
+		 *		- a string to a image file
+		 * @param options: An object with those possible attributes:
+		 *		- boolean "ambient" to set video to loop
+		 *		- function onShown
+		 */
 		BigVideo.show = function(source,options) {
 			if (options === undefined) options = {};
 			isAmbient = options.ambient === true;
 			if (isAmbient || options.doLoop) settings.doLoop = true;
+
 			if (typeof(source) === 'string') {
-				var ext = source.substring(source.lastIndexOf('.')+1);
-				if (ext === 'jpg' || ext === 'gif' || ext === 'png') {
+				// if input was a string, try show that image or video
+				var ext = ( source.lastIndexOf('?') > 0 ) ? source.substring(source.lastIndexOf('.')+1, source.lastIndexOf('?')) : source.substring( source.lastIndexOf('.')+1);
+				if (ext == 'jpg' || ext == 'gif' || ext == 'png') {
 					showPoster(source);
-				} else {
-					if (options.altSource && navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-						source = options.altSource;
-					}
+				} else if (ext == 'mp4' || ext == 'ogg' || ext == 'ogv'|| ext == 'webm') {
 					playVideo(source);
 					if (options.onShown) options.onShown();
 					isQueued = false;
 				}
+			} else if ($.isArray(source)) {
+				// if the input was an array, pass it to videojs
+				playVideo(source);
+			} else if (typeof(source) === "object" && source.src && source.type) {
+				// if the input was an object with valid attributes, wrap it in an
+				// array and pass it to videojs
+				playVideo([source]);
 			} else {
-				playlist = source;
-				currMediaIndex = 0;
-				playVideo(playlist[currMediaIndex]);
-				if (options.onShown) options.onShown();
-				isQueued = true;
+				// fail without valid input
+				throw("BigVideo.show received invalid input for parameter source");
 			}
+		};
+
+		/**
+		 * Show a playlist of video files
+		 *
+		 * @param files: array of elements to pass to BigVideo.show in sequence
+		 * @param options: An object with those possible attributes:
+		 *		- boolean "ambient" to set video to loop
+		 *		- function onShown
+		 */
+		BigVideo.showPlaylist = function (files, options) {
+			if (!$.isArray(files)) {
+				throw("BigVideo.showPlaylist parameter files accepts only arrays");
+			}
+
+			if (options === undefined) options = {};
+			isAmbient = options.ambient === true;
+			if (isAmbient || options.doLoop) settings.doLoop = true;
+
+			playlist = files;
+			currMediaIndex = 0;
+			this.show(playlist[currMediaIndex]);
+			if (options.onShown) options.onShown();
+			isQueued = true;
 		};
 
 		// Expose Video.js player
@@ -379,5 +418,4 @@
 		};
 
 	};
-
 });

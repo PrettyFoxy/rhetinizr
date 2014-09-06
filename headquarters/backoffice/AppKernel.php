@@ -64,12 +64,10 @@ class AppKernel extends Kernel
       new Sonata\FormatterBundle\SonataFormatterBundle(),
       new Sonata\CacheBundle\SonataCacheBundle(),
       new Sonata\BlockBundle\SonataBlockBundle(),
-      new Sonata\SeoBundle\SonataSeoBundle(),
       new Sonata\ClassificationBundle\SonataClassificationBundle(),
       new Rhetina\Bundle\Sonata\ClassificationBundle\RhetinaSonataClassificationBundle(),
       new Sonata\NotificationBundle\SonataNotificationBundle(),
       new Rhetina\Bundle\Sonata\NotificationBundle\RhetinaSonataNotificationBundle(),
-      new Rhetina\Bundle\Sonata\SeoBundle\RhetinaSonataSeoBundle(),
       // Search Integration
       //new FOS\ElasticaBundle\FOSElasticaBundle(),
 
@@ -82,10 +80,6 @@ class AppKernel extends Kernel
       new Rhetina\Bundle\Sonata\MediaBundle\RhetinaSonataMediaBundle(),
       // new Liip\ImagineBundle\LiipImagineBundle(),
 
-      // Disable this if you don't want the timeline in the admin
-      new Spy\TimelineBundle\SpyTimelineBundle(),
-      new Sonata\TimelineBundle\SonataTimelineBundle(),
-      new Rhetina\Bundle\Sonata\TimelineBundle\RhetinaSonataTimelineBundle(),
       new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle()
     );
 

@@ -1,8 +1,8 @@
 /**
  * @file src/better-ajaxify-hashchange.js
- * @version 1.5.2 2013-12-25T18:59:45
- * @overview Ajax website engine for better-dom
- * @copyright Maksim Chemerisuk 2013
+ * @version 1.6.0 2014-08-16T00:32:14
+ * @overview Pjax website engine for better-dom
+ * @copyright Maksim Chemerisuk 2014
  * @license MIT
  * @see https://github.com/chemerisuk/better-ajaxify
  */
@@ -12,22 +12,13 @@
     var baseUrl = location.href.split(/[\?#]/)[0],
         skipHashchange = false;
 
-    DOM.on("ajaxify:load", function(response, target, cancel) {
-        if (!cancel && typeof response === "object") {
+    DOM.on("ajaxify:loadend", function(response, xhr, target, _, canceled) {
+        if (!canceled && typeof response === "object") {
             // update browser url
-            if (response.url !== location.pathname) {
-                var hash = response.url;
-
-                if (!hash.indexOf(baseUrl)) {
-                    hash = hash.substr(baseUrl.length - 1);
-                } else if (hash[0] !== "/" && hash[0] !== "#") {
-                    // fix relative urls
-                    hash = "/" + hash;
-                }
-
+            if (response.url !== location.href.replace("#/", "")) {
                 skipHashchange = true;
 
-                location.hash = hash;
+                location.hash = response.url.replace(baseUrl, "/");
             }
         }
     });
@@ -36,13 +27,7 @@
         if (skipHashchange) {
             skipHashchange = false;
         } else {
-            DOM.fire("ajaxify:history", baseUrl + location.hash.substr(2));
+            DOM.fire("ajaxify:history", baseUrl + location.hash.replace("#/", ""));
         }
     };
-
-    if (~location.hash.indexOf("#/")) {
-        DOM.ready(function() {
-            DOM.fire("ajaxify:fetch", location.href.replace("#/", ""));
-        });
-    }
 }(window.DOM, location));

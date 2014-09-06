@@ -11,6 +11,7 @@
 
 namespace Nelmio\ApiDocBundle\Extractor\Handler;
 
+use Nelmio\ApiDocBundle\DataTypes;
 use Nelmio\ApiDocBundle\Extractor\HandlerInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Routing\Route;
@@ -28,12 +29,20 @@ class FosRestHandler implements HandlerInterface
     {
         foreach ($annotations as $annot) {
             if ($annot instanceof RequestParam) {
-                $annotation->addParameter($annot->name, array(
-                    'required'    => $annot->strict && $annot->default === null,
-                    'dataType'    => $this->handleRequirements($annot->requirements),
+
+                $requirements = $this->handleRequirements($annot->requirements);
+                $data = array(
+                    'required'    => $annot->strict && $annot->nullable === false && $annot->default === null,
+                    'dataType'    => $requirements,
+                    'actualType'  => $this->inferType($requirements),
+                    'subType'     => null,
                     'description' => $annot->description,
                     'readonly'    => false
-                ));
+                );
+                if ($annot->strict === false) {
+                    $data['default'] = $annot->default;
+                }
+                $annotation->addParameter($annot->name, $data);
             } elseif ($annot instanceof QueryParam) {
                 if ($annot->strict && $annot->nullable === false && $annot->default === null) {
                     $annotation->addRequirement($annot->name, array(
@@ -75,5 +84,14 @@ class FosRestHandler implements HandlerInterface
         }
 
         return (string) $requirements;
+    }
+
+    public function inferType($requirement)
+    {
+        if (DataTypes::isPrimitive($requirement)) {
+            return $requirement;
+        }
+
+        return DataTypes::STRING;
     }
 }

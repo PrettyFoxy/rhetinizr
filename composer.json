@@ -35,16 +35,12 @@
         "sonata-project/block-bundle": "~2.2",
         "sonata-project/formatter-bundle": "~2.3",
         "sonata-project/cache-bundle": "~2.1",
-        "sonata-project/seo-bundle": "~1",
-        "sonata-project/timeline-bundle": "~2.2@dev",
         "sonata-project/intl-bundle": "~2.1",
         "sonata-project/admin-bundle": "~2.2",
         "sonata-project/doctrine-orm-admin-bundle": "~2.2",
         "sonata-project/notification-bundle": "~2.2",
         "sonata-project/media-bundle": "~2.2",
         "sonata-project/user-bundle": "~2.2",
-        "sonata-project/page-bundle": "~2.3",
-        "sonata-project/news-bundle": "~2.3",
         "sonata-project/classification-bundle": "~2.2",
 
         "doctrine/orm": "~2.4",
@@ -73,9 +69,7 @@
         "friendsofsymfony/rest-bundle": "~1.3",
         "afurculita/woocommerce-api-client": "dev-master",
 
-        "stof/doctrine-extensions-bundle": "~1.1",
-        "stephpy/TimelineBundle": "~2.0@dev",
-        "stephpy/timeline": "~1.0@dev"
+        "stof/doctrine-extensions-bundle": "~1.1"
     },
     "scripts": {
         "post-root-package-install": [

@@ -82,7 +82,7 @@ Marionette.CollectionView = Marionette.View.extend({
   },
 
   // Handle a child added to the collection
-  _onCollectionAdd: function(child, collection, options) {
+  _onCollectionAdd: function(child) {
     this.destroyEmptyView();
     var ChildView = this.getChildView(child);
     var index = this.collection.indexOf(child);
@@ -118,17 +118,25 @@ Marionette.CollectionView = Marionette.View.extend({
     return this;
   },
 
+  // Render view after sorting. Override this method to
+  // change how the view renders after a `sort` on the collection.
+  // An example of this would be to only `renderChildren` in a `CompositeView`
+  // rather than the full view.
+  resortView: function() {
+    this.render();
+  },
+
   // Internal method. This checks for any changes in the order of the collection.
   // If the index of any view doesn't match, it will render.
-  _sortViews: function(){
+  _sortViews: function() {
     // check for any changes in sort order of views
     var orderChanged = this.collection.find(function(item, index){
       var view = this.children.findByModel(item);
-      return view && view._index !== index;
+      return !view || view._index !== index;
     }, this);
 
     if (orderChanged) {
-      this.render();
+      this.resortView();
     }
   },
 
@@ -226,9 +234,12 @@ Marionette.CollectionView = Marionette.View.extend({
     }
   },
 
-  // Retrieve the childView class, either from `this.options.childView`
+  // Retrieve the `childView` class, either from `this.options.childView`
   // or from the `childView` in the object definition. The "options"
   // takes precedence.
+  // This method receives the model that will be passed to the instance
+  // created from this `childView`. Overriding methods may use the child
+  // to determine what `childView` class to return.
   getChildView: function(child) {
     var childView = this.getOption('childView');
 
@@ -316,6 +327,7 @@ Marionette.CollectionView = Marionette.View.extend({
   renderChildView: function(view, index) {
     view.render();
     this.attachHtml(this, view, index);
+    return view;
   },
 
   // Build a `childView` for a model in the collection.
@@ -344,6 +356,7 @@ Marionette.CollectionView = Marionette.View.extend({
       this._updateIndices(view, false);
     }
 
+    return view;
   },
 
   // check if the collection is empty
@@ -423,14 +436,16 @@ Marionette.CollectionView = Marionette.View.extend({
     this.destroyChildren();
     this.triggerMethod('destroy:collection');
 
-    Marionette.View.prototype.destroy.apply(this, arguments);
+    return Marionette.View.prototype.destroy.apply(this, arguments);
   },
 
   // Destroy the child views that this collection view
   // is holding on to, if any
   destroyChildren: function() {
+    var childViews = this.children.map(_.identity);
     this.children.each(this.removeChildView, this);
     this.checkEmpty();
+    return childViews;
   },
 
   // Set up the child view event forwarding. Uses a "childview:"
@@ -441,7 +456,7 @@ Marionette.CollectionView = Marionette.View.extend({
     // Forward all child view events through the parent,
     // prepending "childview:" to the event name
     this.listenTo(view, 'all', function() {
-      var args = Array.prototype.slice.call(arguments);
+      var args = slice.call(arguments);
       var rootEvent = args[0];
       var childEvents = this.normalizeMethods(_.result(this, 'childEvents'));
 

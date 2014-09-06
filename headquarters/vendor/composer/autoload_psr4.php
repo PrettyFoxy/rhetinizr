@@ -6,12 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'Symfony\\Bundle\\MonologBundle\\' => array($vendorDir . '/symfony/monolog-bundle'),
     'Sonata\\UserBundle\\' => array($vendorDir . '/sonata-project/user-bundle'),
-    'Sonata\\TimelineBundle\\' => array($vendorDir . '/sonata-project/timeline-bundle'),
-    'Sonata\\SeoBundle\\' => array($vendorDir . '/sonata-project/seo-bundle'),
-    'Sonata\\PageBundle\\' => array($vendorDir . '/sonata-project/page-bundle'),
     'Sonata\\NotificationBundle\\' => array($vendorDir . '/sonata-project/notification-bundle'),
-    'Sonata\\NewsBundle\\' => array($vendorDir . '/sonata-project/news-bundle'),
     'Sonata\\MediaBundle\\' => array($vendorDir . '/sonata-project/media-bundle'),
     'Sonata\\IntlBundle\\' => array($vendorDir . '/sonata-project/intl-bundle'),
     'Sonata\\FormatterBundle\\' => array($vendorDir . '/sonata-project/formatter-bundle'),
@@ -33,7 +30,9 @@ return array(
     'Rhetina\\Bridge\\' => array($baseDir . '/headquarters/libraries/Rhetina/Bridge'),
     'Rhetina\\' => array($baseDir . '/headquarters/libraries/Rhetina'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
-    'Hearsay\\RequireJSBundle\\' => array($baseDir . '/headquarters/libraries/Hearsay/RequireJSBundle'),
+    'Leafo\\ScssPhp\\' => array($vendorDir . '/leafo/scssphp/src'),
+    'Ivory\\JsonBuilder\\' => array($vendorDir . '/egeloen/json-builder'),
+    'Ivory\\CKEditorBundle\\' => array($vendorDir . '/egeloen/ckeditor-bundle'),
     'Google\\Authenticator\\Tests\\' => array($vendorDir . '/sonata-project/google-authenticator/tests'),
     'Google\\Authenticator\\' => array($vendorDir . '/sonata-project/google-authenticator/lib'),
 );

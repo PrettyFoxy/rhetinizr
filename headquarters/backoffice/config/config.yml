@@ -24,8 +24,8 @@ imports:
     - { resource: sonata/core/block.yml }
     - { resource: sonata/core/formatter.yml }
     - { resource: sonata/core/cache.yml }
-    - { resource: sonata/core/seo.yml }
-    - { resource: sonata/core/timeline.yml }
+#    - { resource: sonata/core/seo.yml }
+#    - { resource: sonata/core/timeline.yml }
     - { resource: sonata/core/intl.yml }
     - { resource: sonata/core/core.yml }
 

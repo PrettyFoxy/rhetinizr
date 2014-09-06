@@ -47,9 +47,8 @@ Marionette.proxyGetOption = function(optionName) {
 // Pass in a mapping of events => functions or function names
 // and return a mapping of events => functions
 Marionette.normalizeMethods = function(hash) {
-  var normalizedHash = {}, method;
-  _.each(hash, function(fn, name) {
-    method = fn;
+  var normalizedHash = {};
+  _.each(hash, function(method, name) {
     if (!_.isFunction(method)) {
       method = this[method];
     }
@@ -71,7 +70,7 @@ Marionette.normalizeUIKeys = function(hash, ui) {
   }
 
   _.each(_.keys(hash), function(v) {
-    var pattern = /@ui.[a-zA-Z_$0-9]*/g;
+    var pattern = /@ui\.[a-zA-Z_$0-9]*/g;
     if (v.match(pattern)) {
       hash[v.replace(pattern, function(r) {
         return ui[r.slice(4)];

@@ -7,6 +7,7 @@
             AT: 'Austrian',
             BE: 'Belgian',
             BG: 'Bulgarian',
+            BR: 'Brazilian',
             CH: 'Swiss',
             CY: 'Cypriot',
             CZ: 'Czech',
@@ -22,6 +23,7 @@
             HU: 'Hungarian',
             HR: 'Croatian',
             IE: 'Irish',
+            IS: 'Iceland',
             IT: 'Italian',
             LT: 'Lithuanian',
             LU: 'Luxembourg',
@@ -36,7 +38,8 @@
             RS: 'Serbian',
             SE: 'Swedish',
             SI: 'Slovenian',
-            SK: 'Slovak'
+            SK: 'Slovak',
+            ZA: 'South African'
         }
     });
 
@@ -48,8 +51,8 @@
 
         // Supported country codes
         COUNTRY_CODES: [
-            'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'EL', 'HU', 'IE', 'IT',
-            'LV', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RU', 'RS', 'SK', 'SI', 'ES', 'SE', 'CH', 'GB'
+            'AT', 'BE', 'BG', 'BR', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU',
+            'IE', 'IS', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RU', 'RS', 'SE', 'SK', 'SI', 'ZA'
         ],
 
         /**
@@ -253,6 +256,64 @@
             }
 
             return false;
+        },
+        
+        /**
+         * Validate Brazilian VAT number (CNPJ)
+         *
+         * @param {String} value VAT number
+         * @returns {Boolean}
+         */
+        _br: function(value) {
+            if (value === '') {
+                return true;
+            }
+            var cnpj = value.replace(/[^\d]+/g, '');
+            if (cnpj === '' || cnpj.length !== 14) {
+                return false;
+            }
+
+            // Remove invalids CNPJs
+            if (cnpj === '00000000000000' || cnpj === '11111111111111' || cnpj === '22222222222222' ||
+                cnpj === '33333333333333' || cnpj === '44444444444444' || cnpj === '55555555555555' ||
+                cnpj === '66666666666666' || cnpj === '77777777777777' || cnpj === '88888888888888' ||
+                cnpj === '99999999999999')
+            {
+                return false;
+            }
+
+            // Validate verification digits
+            var length  = cnpj.length - 2,
+                numbers = cnpj.substring(0, length),
+                digits  = cnpj.substring(length),
+                sum     = 0,
+                pos     = length - 7;
+
+            for (var i = length; i >= 1; i--) {
+                sum += parseInt(numbers.charAt(length - i), 10) * pos--;
+                if (pos < 2) {
+                    pos = 9;
+                }
+            }
+
+            var result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+            if (result !== parseInt(digits.charAt(0), 10)) {
+                return false;
+            }
+
+            length  = length + 1;
+            numbers = cnpj.substring(0, length);
+            sum     = 0;
+            pos     = length - 7;
+            for (i = length; i >= 1; i--) {
+                sum += parseInt(numbers.charAt(length - i), 10) * pos--;
+                if (pos < 2) {
+                    pos = 9;
+                }
+            }
+
+            result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+            return (result === parseInt(digits.charAt(1), 10));
         },
 
         /**
@@ -594,7 +655,7 @@
 
             value = value.substr(2);
 
-			if (!$.fn.bootstrapValidator.helpers.luhn(value.substr(2))) {
+            if (!$.fn.bootstrapValidator.helpers.luhn(value.substr(2))) {
                 return false;
             }
 
@@ -785,6 +846,19 @@
             }
 
             return true;
+        },
+
+        /**
+         * Validate Icelandic VAT (VSK) number
+         * Examples:
+         * - Valid: 12345, 123456
+         * - Invalid: 1234567
+         *
+         * @params {String} value VAT number
+         * @returns {Boolean}
+         */
+        _is: function(value) {
+            return /^IS\d{5,6}$/.test(value);
         },
 
         /**
@@ -1215,6 +1289,19 @@
             }
 
             return (parseInt(value.substr(2), 10) % 11 === 0);
+        },
+
+        /**
+         * Validate South African VAT number
+         * Examples:
+         * - Valid: 4012345678
+         * - Invalid: 40123456789, 3012345678
+         *
+         * @params {String} value VAT number
+         * @returns {Boolean}
+         */
+         _za: function(value) {
+            return /^ZA4\d{9}$/.test(value);
         }
     };
 }(window.jQuery));

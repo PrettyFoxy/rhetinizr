@@ -4,7 +4,12 @@
         countryNotSupported: 'The country code %s is not supported',
         country: 'Please enter a valid phone number in %s',
         countries: {
+            BR: 'Brazil',
+            ES: 'Spain',
+            FR: 'France',
             GB: 'United Kingdom',
+            MA: 'Morocco',
+            PK: 'Pakistan',
             US: 'USA'
         }
     });
@@ -16,7 +21,7 @@
         },
 
         // The supported countries
-        COUNTRY_CODES: ['GB', 'US'],
+        COUNTRY_CODES: ['BR', 'ES', 'FR', 'GB', 'MA', 'PK', 'US'],
 
         /**
          * Return true if the input value contains a valid phone number for the country
@@ -32,7 +37,6 @@
          *      - Name of callback function that returns the country code
          *      - A callback function that returns the country code
          *
-         * Currently it only supports United State (US) or United Kingdom (GB) countries
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
@@ -56,6 +60,24 @@
 
             var isValid = true;
             switch (country.toUpperCase()) {
+                case 'BR':
+                    // Test: http://regexr.com/399m1
+                    value   = $.trim(value);
+                    isValid = (/^(([\d]{4}[-.\s]{1}[\d]{2,3}[-.\s]{1}[\d]{2}[-.\s]{1}[\d]{2})|([\d]{4}[-.\s]{1}[\d]{3}[-.\s]{1}[\d]{4})|((\(?\+?[0-9]{2}\)?\s?)?(\(?\d{2}\)?\s?)?\d{4,5}[-.\s]?\d{4}))$/).test(value);
+                    break;
+
+                case 'ES':
+                    // http://regex101.com/r/rB9mA9/1
+                    value   = $.trim(value);
+                    isValid = (/^(?:(?:(?:\+|00)34\D?))?(?:9|6)(?:\d\D?){8}$/).test(value);
+                    break;
+
+                case 'FR':
+                    // http://regexr.com/39a2p
+                    value   = $.trim(value);
+                    isValid = (/^(?:(?:(?:\+|00)33[ ]?(?:\(0\)[ ]?)?)|0){1}[1-9]{1}([ .-]?)(?:\d{2}\1?){3}\d{2}$/).test(value);
+                    break;
+
             	case 'GB':
             		// http://aa-asterisk.org.uk/index.php/Regular_Expressions_for_Validating_and_Formatting_GB_Telephone_Numbers#Match_GB_telephone_number_in_any_format
             		// Test: http://regexr.com/38uhv
@@ -63,6 +85,19 @@
             		isValid = (/^\(?(?:(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?\(?(?:0\)?[\s-]?\(?)?|0)(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}|\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}\)?[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))(?:(?:[\s-]?(?:x|ext\.?\s?|\#)\d+)?)$/).test(value);
                     break;
 
+                case 'MA':
+                    // http://en.wikipedia.org/wiki/Telephone_numbers_in_Morocco
+                    // Test: http://regexr.com/399n8
+                    value   = $.trim(value);
+                    isValid = (/^(?:(?:(?:\+|00)212[\s]?(?:[\s]?\(0\)[\s]?)?)|0){1}(?:5[\s.-]?[2-3]|6[\s.-]?[13-9]){1}[0-9]{1}(?:[\s.-]?\d{2}){3}$/).test(value);
+                    break;
+                
+                case 'PK':
+                    // http://regex101.com/r/yH8aV9/2
+                    value   = $.trim(value);
+                    isValid = (/^0?3[0-9]{2}[0-9]{7}$/).test(value);
+                    break;
+                
                 case 'US':
                 /* falls through */
                 default:

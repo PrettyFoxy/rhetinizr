@@ -10,10 +10,15 @@ Marionette.RegionManager = (function(Marionette) {
       Marionette.Controller.call(this, options);
     },
 
-    // Add multiple regions using an object literal, where
+    // Add multiple regions using an object literal or a
+    // function that returns an object literal, where
     // each key becomes the region name, and each value is
     // the region definition.
     addRegions: function(regionDefinitions, defaults) {
+      if (_.isFunction(regionDefinitions)) {
+        regionDefinitions = regionDefinitions.apply(this, arguments);
+      }
+
       var regions = {};
 
       _.each(regionDefinitions, function(definition, name) {
@@ -72,29 +77,37 @@ Marionette.RegionManager = (function(Marionette) {
     removeRegion: function(name) {
       var region = this._regions[name];
       this._remove(name, region);
+
+      return region;
     },
 
     // Empty all regions in the region manager, and
     // remove them
     removeRegions: function() {
+      var regions = this.getRegions();
       _.each(this._regions, function(region, name) {
         this._remove(name, region);
       }, this);
+
+      return regions;
     },
 
     // Empty all regions in the region manager, but
     // leave them attached
     emptyRegions: function() {
-      _.each(this._regions, function(region) {
+      var regions = this.getRegions();
+      _.each(regions, function(region) {
         region.empty();
       }, this);
+
+      return regions;
     },
 
     // Destroy all regions and shut down the region
     // manager entirely
     destroy: function() {
       this.removeRegions();
-      Marionette.Controller.prototype.destroy.apply(this, arguments);
+      return Marionette.Controller.prototype.destroy.apply(this, arguments);
     },
 
     // internal method to store regions
