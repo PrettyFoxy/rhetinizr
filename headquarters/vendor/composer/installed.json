@@ -494,70 +494,6 @@
         ]
     },
     {
-        "name": "alchemy/zippy",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/alchemy-fr/Zippy.git",
-            "reference": "08008f82957b7dc2b54574b506687b33ecfe0589"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/alchemy-fr/Zippy/zipball/08008f82957b7dc2b54574b506687b33ecfe0589",
-            "reference": "08008f82957b7dc2b54574b506687b33ecfe0589",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/collections": "~1.0",
-            "guzzle/guzzle": "~3.0",
-            "php": ">=5.3.3",
-            "pimple/pimple": "~1.0",
-            "symfony/filesystem": "~2.0",
-            "symfony/process": "~2.0"
-        },
-        "require-dev": {
-            "ext-zip": "*",
-            "phpunit/phpunit": "~3.7",
-            "sami/sami": "dev-master@dev",
-            "symfony/finder": "~2.0"
-        },
-        "suggest": {
-            "ext-zip": "To use the ZipExtensionAdapter"
-        },
-        "time": "2014-09-03 08:10:41",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "0.2.x-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "Alchemy": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Alchemy",
-                "email": "dev.team@alchemy.fr",
-                "homepage": "http://www.alchemy.fr/"
-            }
-        ],
-        "description": "Zippy, the archive manager companion",
-        "keywords": [
-            "bzip",
-            "compression",
-            "tar",
-            "zip"
-        ]
-    },
-    {
         "name": "willdurand/jsonp-callback-validator",
         "version": "v1.1.0",
         "version_normalized": "1.1.0.0",
@@ -5254,6 +5190,70 @@
             "extra form",
             "form",
             "template"
+        ]
+    },
+    {
+        "name": "alchemy/zippy",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/alchemy-fr/Zippy.git",
+            "reference": "08008f82957b7dc2b54574b506687b33ecfe0589"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/alchemy-fr/Zippy/zipball/08008f82957b7dc2b54574b506687b33ecfe0589",
+            "reference": "08008f82957b7dc2b54574b506687b33ecfe0589",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/collections": "~1.0",
+            "guzzle/guzzle": "~3.0",
+            "php": ">=5.3.3",
+            "pimple/pimple": "~1.0",
+            "symfony/filesystem": "~2.0",
+            "symfony/process": "~2.0"
+        },
+        "require-dev": {
+            "ext-zip": "*",
+            "phpunit/phpunit": "~3.7",
+            "sami/sami": "dev-master@dev",
+            "symfony/finder": "~2.0"
+        },
+        "suggest": {
+            "ext-zip": "To use the ZipExtensionAdapter"
+        },
+        "time": "2014-09-03 08:10:41",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Alchemy": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Alchemy",
+                "email": "dev.team@alchemy.fr",
+                "homepage": "http://www.alchemy.fr/"
+            }
+        ],
+        "description": "Zippy, the archive manager companion",
+        "keywords": [
+            "bzip",
+            "compression",
+            "tar",
+            "zip"
         ]
     }
 ]
