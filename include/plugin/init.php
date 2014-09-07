@@ -4,9 +4,10 @@
  * Copyright (C) 2014 Alexandru Furculita <alex@rhetina.com>
  */
 
-if (false === file_exists( PHPFOX_DIR_MODULE . 'rhetinizr/headquarters/vendor/autoload.php' )) {
+if (false == file_exists( PHPFOX_DIR_MODULE . 'rhetinizr/headquarters/vendor/autoload.php' )) {
 	return;
 }
+
 include PHPFOX_DIR_MODULE . 'rhetinizr/headquarters/vendor/autoload.php';
 
 //function convert( $size )
@@ -15,7 +16,7 @@ include PHPFOX_DIR_MODULE . 'rhetinizr/headquarters/vendor/autoload.php';
 //
 //  return @round( $size / pow( 1024, ( $i = floor( log( $size, 1024 ) ) ) ), 2 ) . ' ' . $unit[$i];
 //}
-
+//
 //$a = memory_get_usage( true );
 
 if (PHPFOX_DEBUG === true) {
