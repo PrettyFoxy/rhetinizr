@@ -6,11 +6,11 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 
 use FOS\RestBundle\Controller\Annotations\Prefix,
-  FOS\RestBundle\Controller\Annotations\NamePrefix,
-  FOS\RestBundle\Controller\Annotations\RouteResource,
-  FOS\RestBundle\Controller\Annotations\View,
-  FOS\RestBundle\Controller\Annotations\QueryParam,
-  FOS\RestBundle\Controller\FOSRestController;
+	FOS\RestBundle\Controller\Annotations\NamePrefix,
+	FOS\RestBundle\Controller\Annotations\RouteResource,
+	FOS\RestBundle\Controller\Annotations\View,
+	FOS\RestBundle\Controller\Annotations\QueryParam,
+	FOS\RestBundle\Controller\FOSRestController;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
@@ -24,43 +24,43 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  */
 class ProductsController extends FosRestController
 {
-  /**
-   * Get the list of all activated products
-   *
-   * @return array data
-   *
-   * @View()
-   * @ApiDoc()
-   */
-  public function cgetActivatedAction()
-  {
-    if (false === $this->container->has( 'rhetina.module.registrar' )) {
-      return;
-    }
+	/**
+	 * Get the list of all activated products
+	 *
+	 * @return array data
+	 *
+	 * @View()
+	 * @ApiDoc()
+	 */
+	public function cgetActivatedAction()
+	{
+		if (false === $this->container->has( 'rhetina.module.registrar' )) {
+			return array();
+		}
 
-    $products = $this->container->get( 'rhetina.module.registrar' )->getModules();
+		$products = $this->container->get( 'rhetina.module.registrar' )->getModules();
 
-    $richProducts = array();
+		$richProducts = array();
 
-    foreach ($products as $key => $product) {
+		foreach ($products as $key => $product) {
 
-      $productFolderName = str_replace( 'bundle', '', strtolower( $product->getName() ) );
+			$productFolderName = str_replace( 'bundle', '', strtolower( $product->getName() ) );
 
-      if (true === \Phpfox::isModule( $productFolderName )) {
-        $composerContent = array();
+			if (true === \Phpfox::isModule( $productFolderName )) {
+				$composerContent = array();
 
-        if (true === file_exists( $json = PHPFOX_DIR_MODULE . $productFolderName . '/composer.json' )) {
-          $composerContent = json_decode( file_get_contents( $json ), true );
-        }
+				if (true === file_exists( $json = PHPFOX_DIR_MODULE . $productFolderName . '/composer.json' )) {
+					$composerContent = json_decode( file_get_contents( $json ), true );
+				}
 
-        $composerContent['id']   = $productFolderName;
-        $composerContent['name'] = $productFolderName;
+				$composerContent['id'] = $productFolderName;
+				$composerContent['name'] = $productFolderName;
 
-        $richProducts[] = $composerContent;
-      }
-      unset( $products[$key] );
-    }
+				$richProducts[] = $composerContent;
+			}
+			unset( $products[$key] );
+		}
 
-    return $richProducts;
-  }
+		return $richProducts;
+	}
 }
