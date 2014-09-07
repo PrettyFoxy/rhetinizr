@@ -30,7 +30,7 @@ class ModuleRegistrar implements \JsonSerializable
   }
 
   /**
-   * @param ModuleInterface $module
+   * @param Bundle $module
    */
   public function addModule( Bundle $module )
   {
