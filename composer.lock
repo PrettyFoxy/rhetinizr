@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b216038dd242e22abfa222d8a22a4153",
+    "hash": "144180d6dfc6813ab89270272d604f4f",
     "packages": [
         {
             "name": "afurculita/woocommerce-api-client",
