@@ -19,3 +19,8 @@ $aMenus['rhetinizr.rhetinizr'] = array(
         'rhetinizr.terms' => 'admincp.rhetinizr.terms'
     )
 );
+
+if ($sPlugin = Phpfox_Plugin::get('rhetinizr.admincp.menu'))
+{
+	eval($sPlugin);
+}
