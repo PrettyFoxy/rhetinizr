@@ -1,6 +1,3 @@
-parameters:
-    rhetina.module.registrar.class: Rhetina\Component\Module\ModuleRegistrar
-
 services:
     rhetina.module.registrar:
-        class: %rhetina.module.registrar.class%
+        class: Rhetina\Component\Module\ModuleRegistrar
